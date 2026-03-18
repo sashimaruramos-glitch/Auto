@@ -1,0 +1,1 @@
+{\n  "pricing": {\n    "A4": {\n      "black_and_white": 0.05,\n      "color": 0.10\n    },\n    "A3": {\n      "black_and_white": 0.08,\n      "color": 0.15\n    },\n    "A2": {\n      "black_and_white": 0.12,\n      "color": 0.20\n    },\n    "A1": {\n      "black_and_white": 0.15,\n      "color": 0.25\n    }\n  }\n}
