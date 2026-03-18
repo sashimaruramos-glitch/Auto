@@ -1,0 +1,7 @@
+# Ignored files and directories
+
+uploads/
+__pycache__/
+*.db
+.env
+venv/
