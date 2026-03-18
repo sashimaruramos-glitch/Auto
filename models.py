@@ -1,1 +1,29 @@
-from sqlalchemy import Column, Integer, String, ForeignKey\nfrom sqlalchemy.orm import relationship\n\nclass PricingRules(Base):\n    __tablename__ = 'pricing_rules'\n\n    id = Column(Integer, primary_key=True)\n    name = Column(String, nullable=False)\n    amount = Column(Integer, nullable=False)\n\n    def __repr__(self):\n        return f'<PricingRules(id={self.id}, name={self.name}, amount={self.amount})>'\n\nclass PrintJobs(Base):\n    __tablename__ = 'print_jobs'\n\n    id = Column(Integer, primary_key=True)\n    job_name = Column(String, nullable=False)\n    pricing_rule_id = Column(Integer, ForeignKey('pricing_rules.id'), nullable=False)\n\n    pricing_rule = relationship('PricingRules', back_populates='print_jobs')\n\n    def __repr__(self):\n        return f'<PrintJobs(id={self.id}, job_name={self.job_name})>'\n\nPricingRules.print_jobs = relationship('PrintJobs', order_by=PrintJobs.id, back_populates='pricing_rule')
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+
+Base = declarative_base()
+
+class PricingRules(Base):
+    __tablename__ = 'pricing_rules'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    amount = Column(Integer, nullable=False)
+
+    def __repr__(self):
+        return f'<PricingRules(id={self.id}, name={self.name}, amount={self.amount})>'
+
+class PrintJobs(Base):
+    __tablename__ = 'print_jobs'
+
+    id = Column(Integer, primary_key=True)
+    job_name = Column(String, nullable=False)
+    pricing_rule_id = Column(Integer, ForeignKey('pricing_rules.id'), nullable=False)
+
+    pricing_rule = relationship('PricingRules', back_populates='print_jobs')
+
+    def __repr__(self):
+        return f'<PrintJobs(id={self.id}, job_name={self.job_name})>'
+
+PricingRules.print_jobs = relationship('PrintJobs', order_by=PrintJobs.id, back_populates='pricing_rule')
